@@ -22,3 +22,14 @@
     font-size: 16px;
   }
 }
+
+@media (max-height: 700px) {
+  .document {
+    overflow-y: scroll;
+    padding-top: 150px;
+  }
+
+  form {
+    overflow-y: scroll;
+  }
+}

@@ -36,6 +36,10 @@ export default function Home() {
               </select>
             </Link>
           </fieldset>
+
+          <Link to={`/${page}`}>
+            <button>Avançar</button>
+          </Link>
         </form>
 
         <Footer />
