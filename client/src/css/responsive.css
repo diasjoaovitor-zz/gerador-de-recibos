@@ -1,0 +1,24 @@
+@media (min-width: 360px) {
+  h1 {
+    font-size: 28px;
+  }
+
+  legend {
+    font-size: 16px;
+  }
+}
+
+@media (min-width: 540px) {
+  h1 {
+    font-size: 36px;
+  }
+
+  legend {
+    font-size: 18px;
+    padding: 0 10px;
+  }
+
+  select {
+    font-size: 16px;
+  }
+}
