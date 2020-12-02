@@ -10,6 +10,6 @@ const app = express()
 
 app.use(cors())
 app.use(express.json())
-app.use(express.static(path.join(__dirname, 'client/build')))
+app.use(express.static(path.join(__dirname, '../client/build')))
 app.use(routes)
 app.listen(APP_PORT, () => console.log('> Server is running...'))
