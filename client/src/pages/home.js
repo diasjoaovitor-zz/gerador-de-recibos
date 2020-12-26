@@ -33,6 +33,7 @@ export default function Home() {
                 <option value="ferias">férias</option>
                 <option value="ferias-proporcionais">férias proporcionais</option>
                 <option value="salario">salário</option>
+                <option value="salario-proporcional">salário proporcional</option>
               </select>
             </Link>
           </fieldset>

@@ -37,10 +37,15 @@ export default function Salario() {
 
     await api.create(data)
 
+    const months = period.split(',').length
+
+    const value = (salary / 12) * months
+
     pdfMake.createPdf(
       document(
         name, RG, format.currency(salary), year, 
-        period, format.extensive(salary), format.date(date)
+        format.lastOccurrence(period), format.currency(value), 
+        format.extensive(value), format.zero(months), format.date(date)
       )
     ).open()
   }
@@ -50,7 +55,7 @@ export default function Salario() {
       <div className="container">
         <form onSubmit={handleSubmit}>
           <header>
-            <h1>Recibo de Salário</h1>
+            <h1>Recibo de Salário Proporcional</h1>
             <Link to="/">
               <div>
                 <span className="material-icons">arrow_back</span>
@@ -74,7 +79,7 @@ export default function Salario() {
           <fieldset>
             <legend>Periodo</legend>
             <input 
-              type="text" placeholder="mês"
+              type="text" placeholder="janeiro, fevereiro, março"
               onChange={event => setPeriod(event.target.value)} 
             />
           </fieldset>
@@ -96,11 +101,11 @@ export default function Salario() {
   )
 }
 
-function document(name, RG, salary, year, period, extensive, date) {
+function document(name, RG, salary, year, period, value, extensive, months, date) {
   const docDefinition = {
     content: [
       {
-        text: 'Recibo de Salário',
+        text: 'Recibo de Salário Proporcional',
         fontSize: 28,
         bold: true,
         alignment: 'center'
@@ -118,10 +123,10 @@ function document(name, RG, salary, year, period, extensive, date) {
         text: `Ano: ${year}`
       },
       {
-        text: `Mês: ${period}`, margin: [0, 5]
+        text: `Meses: ${period}`, margin: [0, 5]
       },
       {
-        text: `Recebi da empresa João Pedro Ferreira dos Santos, estabelecida na Praça do Mercado, 190, em Poções – BA, no ano de ${year}, a importação de ${salary} – ${extensive}, a qual prestei serviço e dou o meu ciente. `,
+        text: `Recebi da empresa João Pedro Ferreira dos Santos, estabelecida na Praça do Mercado, 190, em Poções – BA, no ano de ${year}, a importação de ${value} – ${extensive}, proporcional a ${months} meses a qual prestei serviço e dou o meu ciente. `,
         margin: [0, 30, 0, 10]
       },
       {
