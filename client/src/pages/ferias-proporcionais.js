@@ -39,7 +39,9 @@ export default function FeriasProporcionais() {
     await api.create(data)
 
     const value = (salary / 12) * period
-    const total = value + oneThird
+    const total = Number(value) + Number(oneThird)
+
+    console.log(total)
 
     pdfMake.createPdf(
       document(
@@ -120,7 +122,7 @@ function document(name, RG, year, salary, oneThird, value, extensive, extensiveO
         text: `Ano: ${year}`, margin: [0, 5]
       },
       {
-        text: `Salario base:  ${salary}`
+        text: `Salário base:  ${salary}`
       },
       {
         text: `1/3 férias:  ${oneThird}`, margin: [0, 5]
