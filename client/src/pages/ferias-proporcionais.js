@@ -27,6 +27,7 @@ export default function FeriasProporcionais() {
 
     const yearMonth = date.slice(0, 7)
     const { salary } = await api.data(yearMonth)
+    const oneThird = (salary/3).toFixed(2)
     
     const year = date.slice(0, 4)
 
@@ -38,11 +39,13 @@ export default function FeriasProporcionais() {
     await api.create(data)
 
     const value = (salary / 12) * period
+    const total = value + oneThird
 
     pdfMake.createPdf(
       document(
-        name, RG, year, format.currency(salary), format.currency(value), 
-        format.extensive(value), format.zero(period), format.date(date)
+        name, RG, year, format.currency(salary), format.currency(oneThird), format.currency(value), 
+        format.extensive(value), format.extensive(oneThird), format.currency(total), format.extensive(total), 
+        format.zero(period), format.date(date)
       )
     ).open()
   }
@@ -98,7 +101,7 @@ export default function FeriasProporcionais() {
   )
 }
 
-function document(name, RG, year, salary, value, extensive, period, date) {
+function document(name, RG, year, salary, oneThird, value, extensive, extensiveOneThird, total, extensiveTotal, period, date) {
   const docDefinition = {
     content: [
       {
@@ -120,7 +123,10 @@ function document(name, RG, year, salary, value, extensive, period, date) {
         text: `Salario base:  ${salary}`
       },
       {
-        text: `Recebi da empresa João Pedro Ferreira dos Santos, estabelecida na Praça do Mercado, 190, em Poções – BA, no ano de ${year}, o valor proporcional de ${value} – ${extensive}, referente a ${period} meses.`,
+        text: `1/3 férias:  ${oneThird}`, margin: [0, 5]
+      },
+      {
+        text: `Recebi da empresa João Pedro Ferreira dos Santos, estabelecida na Praça do Mercado, 190, em Poções – BA, no ano de ${year}, o valor proporcional de ${value} – ${extensive}, referente a ${period} meses, com terço de férias equivalente a ${oneThird} - ${extensiveOneThird}, resultando no total de ${total} - ${extensiveTotal}.`,
         margin: [0, 30, 0, 10]
       },
       {
