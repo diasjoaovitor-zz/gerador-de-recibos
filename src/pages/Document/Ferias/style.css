@@ -1,0 +1,16 @@
+#ferias input {
+  margin-bottom: 10px;
+}
+
+#ferias fieldset fieldset {
+  margin-bottom: 10px;
+}
+
+#ferias fieldset fieldset input:last-child {
+  margin: 0;
+}
+
+#ferias fieldset > label:last-child {
+  display: block;
+  margin-top: 10px;
+}

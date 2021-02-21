@@ -1,11 +1,27 @@
-import express from 'express'
-import Controller from './controllers.js'
+import { BrowserRouter, Switch, Route } from 'react-router-dom'
 
-const controller = new Controller()
+import Index from './pages'
+import Document from './pages/Document'
+import Decimo from './pages/Document/Decimo'
+import DecimoProporcional from './pages/Document/Decimo-Proporcional'
+import Ferias from './pages/Document/Ferias'
+import FeriasProporcionais from './pages/Document/Ferias-Proporcionais'
+import Salario from './pages/Document/Salario'
 
-const routes = express.Router()
+function Routes() {
+  return (
+    <BrowserRouter>
+      <Switch>
+        <Route component={Index} path="/" exact />
+        <Route component={Document} path="/document" />
+        <Route component={Decimo} path="/decimo" />
+        <Route component={DecimoProporcional} path="/decimo-proporcional" />
+        <Route component={Ferias} path="/ferias" />
+        <Route component={FeriasProporcionais} path="/ferias-proporcionais" />
+        <Route component={Salario} path="/salario" />
+      </Switch>
+    </BrowserRouter>
+  )
+} 
 
-routes.get('/api/:yearMonth', controller.data)
-routes.post('/api', controller.create)
-
-export default routes
+export default Routes
