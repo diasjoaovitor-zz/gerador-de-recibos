@@ -1,0 +1,67 @@
+* {
+  margin: 0;
+  padding: 0;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  padding: 20px;
+  background-color: #3c5f8b;
+}
+
+form {
+  width: 100%;
+  max-width: 540px;
+  padding: 20px;
+  border-radius: 8px;
+  background-color: #fff;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+fieldset {
+  padding: 10px;
+  border-radius: 4px;
+}
+
+input, output, select, button {
+  width: 100%;
+  height: 40px;
+  border-radius: 4px;
+  border: 1px solid #767676;
+  font-size: 16px;
+}
+
+input, output, select {
+  padding-left: 10px;
+  background-color: #fff;
+}
+
+output {
+  display: flex;
+  align-items: center;
+  background-color: #e0e0e0;
+}
+
+button {
+  margin-top: 20px;
+  font-weight: bold;
+  color: #fff;
+  background-color: #888;
+}
+
+label span {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 16px;
+}
