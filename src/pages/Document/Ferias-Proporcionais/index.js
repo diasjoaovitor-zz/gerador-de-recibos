@@ -75,11 +75,11 @@ function FeriasProporcionais() {
           <legend>Periodo</legend>
           <input 
             type="date" value={date} required 
-            onChange={event => setDate(event.target.proportional)}
+            onChange={event => setDate(event.target.value)}
           />
           <input 
             type="date" value={endDate} required 
-            onChange={event => setEndDate(event.target.proportional)}
+            onChange={event => setEndDate(event.target.value)}
           />
           <output>{period}</output>
         </fieldset>
@@ -87,7 +87,7 @@ function FeriasProporcionais() {
           <span>Salário</span>
           <input 
             type="number" value={salary}
-            onChange={event => setSalary(event.target.proportional)}
+            onChange={event => setSalary(event.target.value)}
           />
         </label>
         <label>
