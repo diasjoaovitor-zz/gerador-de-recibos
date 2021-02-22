@@ -46,13 +46,13 @@ class FormatDate {
   }
 
   countMonths(initial, final) {
+    initial = initial.slice(5, 7)
+    final = final.slice(5, 7)
+
     if(initial > final)
       [ initial, final ] = [ final, initial ]
 
-    const initialMonth = initial.slice(5, 7)
-    const finalMonth = final.slice(5, 7)
-
-    return finalMonth - initialMonth
+    return final - initial
   }
 
   period(value) {

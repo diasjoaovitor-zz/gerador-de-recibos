@@ -16,23 +16,26 @@ function DecimoProporcional() {
   const formatDate = new FormatDate()
 
   const today = formatDate.today()
+  const nextDate = formatDate.endDate(today)
 
   const storage = JSON.parse(localStorage.getItem('data')) || {}
 
   const [ date, setDate ] = useState(today)
-  const [ endDate, setEndDate ] = useState(formatDate.endDate(today))
+  const [ endDate, setEndDate ] = useState(nextDate)
   const [ period, setPeriod ] = useState('um mês')
   const [ salary, setSalary ] = useState(storage.salary)
-  const [ netValue, setNetValue ] = useState(proportional())
+  const [ netValue, setNetValue ] = useState(proportional(today, nextDate, date.salary))
 
   useEffect(() => {
     (async () => {
       const { data: { salary } } = await salaryApi.get(`/show/${formatDate.yearMonth(date)}`)
 
-      setEndDate(formatDate.endDate(date))
+      const endDate = formatDate.endDate(date)
+
+      setEndDate(endDate)
       setPeriod('um mês')
       setSalary(salary)
-      setNetValue(proportional())
+      setNetValue(proportional(date, endDate, salary))
     })()
   }, [date])
 
@@ -40,14 +43,17 @@ function DecimoProporcional() {
     const months = formatDate.countMonths(date, endDate)
 
     setPeriod(formatDate.period(months))
-    setNetValue(proportional())
+    setNetValue(proportional(date, endDate, salary))
   }, [endDate])
 
   useEffect(() => {
-    setNetValue(proportional())
+    setNetValue(proportional(date, endDate, salary))
   }, [salary])
 
-  function proportional() {
+  function proportional(date, endDate, salary) {
+    if(!date || !endDate)
+      return
+
     const months = formatDate.countMonths(date, endDate)
 
     return (salary / 12 * months).toFixed(2)
