@@ -23,7 +23,7 @@ function Employee(props) {
         />
         <input 
           type="text" placeholder="RG" required 
-          name="rg" mask="xxx.xxx.xxx-xx" value={data.rg || ''} onChange={handleMask}
+          name="rg" mask="xx.xxx.xxx-xx" value={data.rg || ''} onChange={handleMask}
         />
       </fieldset>
 
