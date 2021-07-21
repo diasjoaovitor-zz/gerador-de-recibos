@@ -1,0 +1,20 @@
+.lock {
+  display: flex;
+  align-items: center;
+  border: 1px solid #767676;
+  height: 40px;
+  border-radius: 4px;
+}
+
+.lock span {
+  cursor: pointer;
+  position: relative;
+  top: 3px;
+}
+
+.lock input {
+  border: none;
+  margin: 0;
+  height: auto;
+  margin-right: 10px;
+}

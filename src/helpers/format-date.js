@@ -45,12 +45,21 @@ class FormatDate {
     return yearMonth
   }
 
+  year(date) {
+    const year = date.slice(0, 4)
+
+    return year
+  }
+
   countMonths(initial, final) {
     initial = initial.slice(5, 7)
     final = final.slice(5, 7)
 
     if(initial > final)
-      [ initial, final ] = [ final, initial ]
+      return initial - (initial - final)
+
+    if(initial === final)
+      return 12
 
     return final - initial
   }

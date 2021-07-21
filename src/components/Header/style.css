@@ -1,0 +1,18 @@
+.header-component {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header-component button {
+  font-size: 36px !important;
+  font-weight: bold !important;
+  color: #000;
+  background-color: #0000;
+  cursor: pointer;
+  margin-left: 20px;
+}
+
+.header-component button:hover {
+  color: #333;
+}
