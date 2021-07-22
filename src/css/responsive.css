@@ -1,5 +1,5 @@
 @media (min-height: 786px) {
-  .company {
+  .company, .decimo-proporcional, .ferias, .ferias-proporcionais {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -10,7 +10,7 @@
 }
 
 @media (min-height: 475px) {
-  .employee {
+  .employee, .document, .decimo, .salario {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -19,38 +19,3 @@
     padding: 0 20px;
   }
 }
-
-@media (min-height: 296px) {
-  .document {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100vw;
-    height: 100vh;
-    padding: 0 20px;
-  }
-}
-
-@media (min-height: 392px) {
-  .decimo {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100vw;
-    height: 100vh;
-    padding: 0 20px;
-  }
-}
-
-@media (min-height: 684px) {
-  .decimo-proporcional {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100vw;
-    height: 100vh;
-    padding: 0 20px;
-  }
-}
-
-

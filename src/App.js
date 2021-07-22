@@ -6,7 +6,8 @@ import Document from './pages/Document'
 import Decimo from './pages/Document-Pages/Decimo'
 import DecimoProporcional from './pages/Document-Pages/Decimo-Proporcional'
 import Ferias from './pages/Document-Pages/Ferias'
-
+import FeriasProporcionais from './pages/Document-Pages/Ferias-Proporcionais'
+import Salario from './pages/Document-Pages/Salario'
 
 import './css/style.css'
 import './css/responsive.css'
@@ -21,6 +22,8 @@ function App() {
         <Route component={Decimo} path="/decimo" />
         <Route component={DecimoProporcional} path="/decimo-proporcional" />
         <Route component={Ferias} path="/ferias" />
+        <Route component={FeriasProporcionais} path="/ferias-proporcionais" />
+        <Route component={Salario} path="/salario" />
       </Switch>
     </BrowserRouter>
   )

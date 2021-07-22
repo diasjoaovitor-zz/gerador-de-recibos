@@ -91,11 +91,17 @@ form > button:hover, a > button {
   margin: 0;
 }
 
-.ferias form > fieldset > label {
+.ferias form > fieldset > label,
+.ferias-proporcionais form > fieldset > label {
   margin-top: 10px;
   display: block;
 }
 
-.ferias form > fieldset > label input {
+.ferias form > fieldset > label input,
+.ferias-proporcionais form > fieldset > label input {
   margin: 0;
+}
+
+.ferias input[type="date"]:read-only {
+  background-color: #d0d0d0;
 }

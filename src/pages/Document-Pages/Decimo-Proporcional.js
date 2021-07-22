@@ -7,7 +7,7 @@ import Header from  '../../components/Header'
 import Loader from '../../components/Loader'
 import Lock from '../../components/Lock'
 
-import decimo from '../../documents/decimo'
+import decimoProporcional from '../../documents/decimo-proporcional'
 
 import FormatDate from '../../helpers/format-date'
 
@@ -87,9 +87,9 @@ function DecimoProporcional() {
   function generate(event) {
     event.preventDefault()
 
-    const data = { ...state, date, salary }
+    const data = { ...state, salary, netValue, date, endDate, period }
     
-    pdfMake.createPdf(decimo(data)).open()
+    pdfMake.createPdf(decimoProporcional(data)).open()
   }
 
   function handleClick(e) {
@@ -104,7 +104,7 @@ function DecimoProporcional() {
       if(endYear - year <= 1) {
         setEndDate(e.target.value)
       } else {
-        window.alert('O peeríodo não deve ser maior que 1 ano')
+        window.alert('O período não deve ser maior que 1 ano')
         setEndDate(formatDate.endDate(date))
       }
     }

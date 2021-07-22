@@ -63,6 +63,9 @@ class FormatDate {
   }
 
   period(value) {
+    if(value < 0)
+      return 'periodo inválido'
+      
     const sentence = ['periodo inválido', 'um mês', 'dois meses', 'três meses', 'quatro meses', 'cinco meses', 'seis meses', 'sete meses', 'oito meses', 'nove meses', 'dez meses', 'onze meses', 'doze meses']
 
     return sentence[value]

@@ -7,13 +7,13 @@ import Header from  '../../components/Header'
 import Loader from '../../components/Loader'
 import Lock from '../../components/Lock'
 
-import ferias from '../../documents/ferias'
+import feriasProporcionais from '../../documents/ferias-proporcionais'
 
 import FormatDate from '../../helpers/format-date'
 
 import { salaryApi } from '../../services/api'
 
-function Ferias() {
+function FeriasProporcionais() {
   pdfMake.vfs = pdfFonts.pdfMake.vfs
 
   const formatDate = new FormatDate()
@@ -25,6 +25,7 @@ function Ferias() {
 
   const [ date, setDate ] = useState(today)
   const [ endDate, setEndDate ] = useState(nextDate)
+  const [ period, setPeriod ] = useState('um mês')
   const [ salaries, setSalaries ] = useState([])
   const [ salary, setSalary ] = useState(0)
   const [ oneThird, setOneThird ] = useState(0)
@@ -44,7 +45,7 @@ function Ferias() {
         if(salary) {
           setSalary(salary || 0)
           setOneThird((salary / 3).toFixed(2))
-          setNetValue(calcNetValue(salary))
+          setNetValue(proportional(date, endDate, salary))
         }
       } catch (error) {
         window.alert('Não foi possível encontrar os valores do salário mínimo')
@@ -62,41 +63,69 @@ function Ferias() {
 
       const salary = object ? object.salary : ''
 
+      const months = formatDate.countMonths(date, endDate)
+
       setEndDate(endDate)
+      setPeriod(formatDate.period(months))
       setSalary(salary)
       setOneThird((salary / 3).toFixed(2))
-      setNetValue(calcNetValue(salary))
+      setNetValue(proportional(date, endDate, salary))
     }
   }, [date, lock])
 
   useEffect(() => {
+    const months = formatDate.countMonths(date, endDate)
+
+    setPeriod(formatDate.period(months))
+    setNetValue(proportional(date, endDate, salary))
+  }, [endDate])
+
+  useEffect(() => {
     setOneThird((salary / 3).toFixed(2))
-    setNetValue(calcNetValue(salary))
+    setNetValue(proportional(date, endDate, salary))
   }, [salary])
 
-  function calcNetValue(salary) {
-    const netValue = Number(salary) + salary / 3
+  function proportional(date, endDate, salary) {
+    if(!date || !endDate)
+      return
+
+    const months = formatDate.countMonths(date, endDate)
+
+    const netValue = salary / 12 * months + salary / 3
 
     return netValue.toFixed(2)
   }
 
   function generate(event) {
     event.preventDefault()
-
-    const data = { ...state, salary , oneThird, netValue, date, endDate }
+    const data = { ...state, salary, oneThird, netValue, date, endDate, period }
     
-    pdfMake.createPdf(ferias(data)).open()
+    pdfMake.createPdf(feriasProporcionais(data)).open()
   }
 
   function handleClick(e) {
     lock ? setLock(false) : setLock(true)
   }
 
+  function handleEndDate(e) {
+    const year = formatDate.year(date)
+    const endYear = formatDate.year(e.target.value)
+
+    if(endYear) {
+      if(endYear - year <= 1) {
+        setEndDate(e.target.value)
+      } else {
+        window.alert('O período não deve ser maior que 1 ano')
+        setEndDate(formatDate.endDate(date))
+      }
+    }
+  }
+
   return (
-    <div className="ferias container">
+    <div className="ferias-proporcionais container">
       <form onSubmit={generate}>
         <Header pathname="/document" state={state}>
-          Férias
+          Férias Proporcionais
         </Header>
         <fieldset>
           <fieldset>
@@ -111,9 +140,11 @@ function Ferias() {
             <label>
               <span>Fim</span>
               <input 
-                type="date" value={endDate} required readOnly
+                type="date" value={endDate} required
+                onChange={handleEndDate}
               />
             </label>
+            <output>{period}</output>
           </fieldset>
           <label>
             <span>Salário</span>
@@ -143,4 +174,4 @@ function Ferias() {
   )
 }
 
-export default Ferias
+export default FeriasProporcionais
