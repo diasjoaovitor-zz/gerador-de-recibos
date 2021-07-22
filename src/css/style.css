@@ -53,6 +53,7 @@ input, select, button, output {
 input, select, output {  
   padding-left: 10px;
   border: 1px solid #767676;
+  background-color: #fff;
 }
 
 input {
