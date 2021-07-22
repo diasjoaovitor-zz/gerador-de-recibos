@@ -51,21 +51,19 @@ class FormatDate {
     return year
   }
 
-  countMonths(initial, final) {
-    initial = initial.slice(5, 7)
-    final = final.slice(5, 7)
+  countMonths(dateFrom, dateTo) {
+    const [ yearFrom, monthFrom ] = dateFrom.split('-')
+    const [ yearTo, monthTo ] = dateTo.split('-')
 
-    if(initial > final)
-      return initial - (initial - final)
+    const a = new Date(yearFrom, monthFrom)
+    const b = new Date(yearTo, monthTo)
 
-    if(initial === final)
-      return 12
-
-    return final - initial
+    return b.getMonth() - a.getMonth() + 
+   (12 * (b.getFullYear() - a.getFullYear()))
   }
 
   period(value) {
-    const sentence = ['menos de um mês', 'um mês', 'dois meses', 'três meses', 'quatro meses', 'cinco meses', 'seis meses', 'sete meses', 'oito meses', 'nove meses', 'dez meses', 'onze meses', 'doze meses']
+    const sentence = ['periodo inválido', 'um mês', 'dois meses', 'três meses', 'quatro meses', 'cinco meses', 'seis meses', 'sete meses', 'oito meses', 'nove meses', 'dez meses', 'onze meses', 'doze meses']
 
     return sentence[value]
   }

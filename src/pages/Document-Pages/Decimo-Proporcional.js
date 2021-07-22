@@ -26,9 +26,9 @@ function DecimoProporcional() {
   const [ date, setDate ] = useState(today)
   const [ endDate, setEndDate ] = useState(nextDate)
   const [ period, setPeriod ] = useState('um mês')
-  const [ netValue, setNetValue ] = useState(proportional(today, nextDate, date.salary))
   const [ salaries, setSalaries ] = useState([])
   const [ salary, setSalary ] = useState(0)
+  const [ netValue, setNetValue ] = useState(proportional(today, nextDate, date.salary))
   const [ loader, setLoader ] = useState(true)
   const [ lock, setLock ] = useState(false)
 
@@ -38,9 +38,9 @@ function DecimoProporcional() {
       try {
         const { data } = await salaryApi.get('/')
 
-        setSalaries(data)
-        const { salary } = data.find(object => object.period === formatDate.yearMonth(date))
-        setSalary(salary || 0)
+        data.length > 0 && setSalaries(data)
+        const object = data.find(object => object.period === formatDate.yearMonth(date))
+        object && setSalary(object.salary)
       } catch (error) {
         window.alert('Não foi possível encontrar os valores do salário mínimo')
         setSalary(salary || 0)
@@ -96,11 +96,25 @@ function DecimoProporcional() {
     lock ? setLock(false) : setLock(true)
   }
 
+  function handleEndDate(e) {
+    const year = formatDate.year(date)
+    const endYear = formatDate.year(e.target.value)
+
+    if(endYear) {
+      if(endYear - year <= 1) {
+        setEndDate(e.target.value)
+      } else {
+        window.alert('O peeríodo não deve ser maior que 1 ano')
+        setEndDate(formatDate.endDate(date))
+      }
+    }
+  }
+
   return (
     <div className="decimo-proporcional container">
       <form onSubmit={generate}>
         <Header pathname="/document" state={state}>
-          Recibo de Décimo Terceiro Salário Proporcional
+          Décimo Proporcional
         </Header>
         <fieldset>
           <fieldset>
@@ -116,19 +130,7 @@ function DecimoProporcional() {
               <span>Fim</span>
               <input 
                 type="date" value={endDate} required 
-                onChange={event => {
-                  const year = formatDate.year(date)
-                  const endYear = formatDate.year(event.target.value)
-
-                  if(endYear) {
-                    if(endYear - year === 1) {
-                      setEndDate(event.target.value)
-                    } else {
-                     window.alert('O peeríodo não deve ser maior que 1 ano')
-                      setEndDate(formatDate.endDate(date))
-                    }
-                  }
-                }}
+                onChange={handleEndDate}
               />
             </label>
             <output>{period}</output>

@@ -3,7 +3,7 @@ import { useHistory, useLocation } from 'react-router-dom'
 
 import Format from '../helpers/format'
 
-import { ibjeApi } from   '../services/api'
+import { ibjeApi, salaryApi } from   '../services/api'
 
 function Company() {
   const format = new Format()
@@ -14,10 +14,14 @@ function Company() {
 
   const history = useHistory()
 
-  const [ data, setData ] = useState({ ...storage, ...location.state })
+  const [ data, setData ] = useState(storage)
   const [ states, setStates ] = useState([])
   const [ state, setState ] = useState(storage.state)
   const [ cities, setCities ] = useState([])
+
+  useEffect(() => {
+    (async () => await salaryApi.get('/'))()
+  }, [])
 
   useEffect(() => {
     (async () => {
@@ -65,7 +69,7 @@ function Company() {
   
   function handleSubmit() {
     save()
-    history.push('/employee', data)
+    history.push('/employee', { ...data, ...location.state })
   }
 
   return (

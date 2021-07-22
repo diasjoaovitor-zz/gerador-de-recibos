@@ -86,3 +86,16 @@ form > button:hover, a > button {
   margin: 10px 0;
   display: block;
 }
+
+.decimo-proporcional form > fieldset > label input {
+  margin: 0;
+}
+
+.ferias form > fieldset > label {
+  margin-top: 10px;
+  display: block;
+}
+
+.ferias form > fieldset > label input {
+  margin: 0;
+}
