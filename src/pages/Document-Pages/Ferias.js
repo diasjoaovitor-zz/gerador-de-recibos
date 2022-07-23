@@ -111,7 +111,8 @@ function Ferias() {
             <label>
               <span>Fim</span>
               <input 
-                type="date" value={endDate} required readOnly
+                type="date" value={endDate} required
+                onChange={event => setDate(event.target.value)}
               />
             </label>
           </fieldset>

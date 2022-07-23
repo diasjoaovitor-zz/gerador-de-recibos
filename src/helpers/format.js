@@ -1,16 +1,6 @@
 import extenso from 'extenso'
 
 class Format {
-  mask(value, mask) {
-    const array = [...value.replace(/\D/g, '')]
-    
-    const limit = mask.slice(0, value.length)[value.length - 1] !== 'x'
-      ? mask.slice(0, value.length + 1)
-      : mask.slice(0, value.length)
-
-    return limit.replace(/x/g, () => array.shift() || '')
-  }
-
   currency(value) {
     return Intl.NumberFormat('pt-br', {
       style: 'currency', currency: 'BRL'

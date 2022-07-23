@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import NumberFormat from 'react-number-format'
 import { useHistory, useLocation } from 'react-router-dom'
 
 import Format from '../helpers/format'
@@ -52,13 +53,8 @@ function Company() {
   }
 
   function handleChange(e) {
+    console.log(e.target.value)
     setData({ ...data, [ e.target.name ]: e.target.value })
-  }
-
-  function handleMask(e) {
-    const { target: { name, value, attributes: { mask } } } = e
-
-    setData({ ...data, [ name ]: format.mask(value, mask.value) })
   }
   
   function handleState(event) {
@@ -87,18 +83,16 @@ function Company() {
           </label>
           <label>
             <span>CNPJ</span>
-            <input 
-              type="text" name="cnpj" required 
-              mask="xx.xxx.xxx/xxxx-xx" value={data.cnpj || ''} 
-              onChange={handleMask}
+            <NumberFormat
+              format="##.###.###/####-##" allowEmptyFormatting mask="_" required 
+              name="cnpj" value={data.cnpj || ''} onChange={handleChange}
             />
           </label>
           <label>
             <span>Telefone</span>
-            <input 
-              type="tel" name="tel" required 
-              mask="(xx) xxxx-xxxx" value={data.tel || ''} 
-              onChange={handleMask}
+            <NumberFormat
+              format="(##) ####-####" allowEmptyFormatting mask="_" required 
+              type="tel" name="tel" value={data.tel || ''} onChange={handleChange}
             />
           </label>
           <fieldset>
